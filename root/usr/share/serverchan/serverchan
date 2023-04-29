@@ -1177,6 +1177,7 @@ serverchan_cron
 
 # 限制并发进程
 [ -z "$thread_num" ] || [ "$thread_num" -eq "0" ] && thread_num=5
+[ "$1" ] && [ $1 == "t1" ] && thread_num=1
 [ -e ${dir}fd1 ] || mkfifo ${dir}fd1
 exec 5<>${dir}fd1
 rm -f ${dir}fd1 >/dev/null 2>&1
@@ -1190,7 +1191,7 @@ if [ "$1" ] ;then
 	[ $1 == "send" ] && send
 	[ $1 == "soc" ] && echo `soc_temp` > ${dir}soc_tmp
 	[ $1 == "test" ] && send test
-	exit
+	[ $1 == "t1" ] || exit
 fi
 
 # 载入在线设备
